@@ -1,4 +1,4 @@
-import { Injectable, Module } from '@nestjs/common';
+import { Injectable, Module, Scope } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Event } from 'src/events/entities/event.entity';
 import { Connection } from 'typeorm';
@@ -38,7 +38,8 @@ import { Flavor } from './entities/flavor.entity';
     // }
     { 
       provide: COFFEE_BRANDS, 
-      useValue: ['buddy brew', 'nescafe'] 
+      useFactory: () => ['buddy brew', 'nescafe'],
+      scope: Scope.TRANSIENT,
     }
     // { 
     //   provide: COFFEE_BRANDS, 
