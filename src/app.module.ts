@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -9,6 +9,7 @@ import { CoffeeRatingModule } from './coffee-rating/coffee-rating.module';
 import { ConfigModule } from '@nestjs/config'
 import Joi = require('@hapi/joi');
 import appConfig from './config/app.config';
+import { APP_PIPE } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -38,6 +39,13 @@ import appConfig from './config/app.config';
     CoffeeRatingModule
   ],
   controllers: [AppController],
-  providers: [AppService, CoffeeRatingService],
+  providers: [
+    AppService, 
+    CoffeeRatingService,
+    // {
+    //   provide: APP_PIPE,
+    //   useClass: ValidationPipe,
+    // },
+  ],
 })
 export class AppModule {}
